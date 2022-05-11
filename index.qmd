@@ -1,0 +1,102 @@
+---
+title: "Combining R & Obserbale with Quarto"
+format:
+  html:
+    code-tools: true
+    code-fold: true
+---
+
+## Data handling & analysis In R
+
+```{r}
+library("sf")
+countries <- st_read("data/countries.gpkg", quiet = T)
+plot(st_geometry(countries))
+```
+
+```{r}
+data <- read.csv("data/stat.csv")
+head(data)
+```
+Merge data & geometries
+
+```{r}
+world = merge(countries, data, by.x = "ISO3", by.y = "id")
+```
+
+Convert to geojson & export
+
+```{r}
+library(geojsonsf)
+geo = sf_geojson(world)
+write(geo, "data/world.geojson")
+```
+
+## Then, geoviz in Observable
+
+```{ojs}
+world = FileAttachment("data/world.geojson").json()
+```
+
+```{ojs}
+Inputs.table(world.features.map((d) => d.properties))
+```
+
+```{ojs}
+d3 = require("d3@7", "d3-geo-projection@4")
+bertin = import('https://cdn.skypack.dev/bertin@0.9.12')
+```
+
+```{ojs}
+viewof val = Inputs.radio(["pop", "gdp"], {
+  label: "Data to be displayed",
+  value: "pop"
+})
+viewof step = Inputs.range([10, 50], {
+  label: "step",
+  step: 1,
+  value: 15
+})
+viewof k = Inputs.range([5, 30], {
+  label: "Radius of the largest circle",
+  step: 1,
+  value: 15
+})
+viewof dorling = Inputs.toggle({ label: "Avoid overlap (dorling)" })
+```
+
+
+```{ojs}
+bertin.draw({
+  params: { projection: d3.geoBertin1953() },
+  layers: [
+    {
+      type: "header",
+      text:
+        (val == "pop" ? "World population" : "World GDP") + ` (step = ${step})`,
+      fill: "#cf429d"
+    },
+    {
+      type: "regularbubble",
+      geojson: world,
+      step: step,
+      values: val,
+      k: k,
+      fill: "#cf429d",
+      tooltip: [
+        "$NAMEen",
+        "",
+        "country value",
+        `$${val}`,
+        "",
+        "dot value",
+        "$___value" // ___value is the name of the computed field with the value of the point
+      ],
+      dorling: dorling
+    },
+    { geojson: world, fill: "white", fillOpacity: 0.3, stroke: "none" },
+    { type: "graticule" },
+    { type: "outline" }
+  ]
+})
+```
