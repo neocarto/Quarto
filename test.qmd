@@ -24,7 +24,7 @@ Inputs.table(data)
 
 ## 2 - sf 
 
-Ca marche mais il faut bidouiller un peu pour avoir une geojon exploitable
+Ca marche mais il faut bidouiller un peu pour avoir un geojon exploitable
 
 ### R
 
