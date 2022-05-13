@@ -126,8 +126,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="data-frame-ca-marche" class="level2">
-<h2 class="anchored" data-anchor-id="data-frame-ca-marche">1 - Data frame =&gt; ca marche</h2>
+<section id="data-frame" class="level2">
+<h2 class="anchored" data-anchor-id="data-frame">1 - Data frame</h2>
+<p>Ca marche impec !</p>
 <section id="r" class="level3">
 <h3 class="anchored" data-anchor-id="r">R</h3>
 <div class="cell">
@@ -138,8 +139,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="ojs" class="level3">
 <h3 class="anchored" data-anchor-id="ojs">OJS</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2" data-startfrom="19" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 18;"><span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> <span class="fu">transpose</span>(newdata)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2" data-startfrom="21" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 20;"><span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> <span class="fu">transpose</span>(newdata)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-1-1" data-nodetype="declaration">
@@ -157,8 +158,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section>
 </section>
-<section id="sf-ca-marche-mais-il-faut-bidouiller-un-peu-pour-avoir-une-geojon-exploitable" class="level2">
-<h2 class="anchored" data-anchor-id="sf-ca-marche-mais-il-faut-bidouiller-un-peu-pour-avoir-une-geojon-exploitable">2 - sf =&gt; ca marche mais il faut bidouiller un peu pour avoir une geojon exploitable</h2>
+<section id="sf" class="level2">
+<h2 class="anchored" data-anchor-id="sf">2 - sf</h2>
+<p>Ca marche mais il faut bidouiller un peu pour avoir un geojon exploitable</p>
 <section id="r-1" class="level3">
 <h3 class="anchored" data-anchor-id="r-1">R</h3>
 <div class="cell">
@@ -175,7 +177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="ojs-1" class="level3">
 <h3 class="anchored" data-anchor-id="ojs-1">OJS</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6" data-startfrom="39" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 38;"><span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>countries <span class="op">=</span> <span class="bu">JSON</span><span class="op">.</span><span class="fu">parse</span>(geo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6" data-startfrom="43" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 42;"><span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>countries <span class="op">=</span> <span class="bu">JSON</span><span class="op">.</span><span class="fu">parse</span>(geo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="declaration">
 
@@ -183,8 +185,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7" data-startfrom="43" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 42;"><span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>bertin <span class="op">=</span> <span class="im">import</span>(<span class="st">'https://cdn.skypack.dev/bertin@0.9.12'</span>)</span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>bertin<span class="op">.</span><span class="fu">quickdraw</span>(countries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7" data-startfrom="47" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 46;"><span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>bertin <span class="op">=</span> <span class="im">import</span>(<span class="st">'https://cdn.skypack.dev/bertin@0.9.12'</span>)</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>bertin<span class="op">.</span><span class="fu">quickdraw</span>(countries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-3-1" data-nodetype="declaration">
