@@ -1,4 +1,4 @@
-# Quarto examples
+# Quarto Examples
 
 ### Combining R & Obserbale with Quarto
 
