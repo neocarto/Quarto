@@ -4,7 +4,9 @@ format: html
 editor: visual
 ---
 
-## 1 - Data frame =\> ca marche
+## 1 - Data frame
+
+ Ca marche impec !
 
 ### R
 
@@ -20,7 +22,9 @@ data = transpose(newdata)
 Inputs.table(data)
 ```
 
-## 2 - sf =\> ca marche mais il faut bidouiller un peu pour avoir une geojon exploitable
+## 2 - sf 
+
+Ca marche mais il faut bidouiller un peu pour avoir une geojon exploitable
 
 ### R
 
