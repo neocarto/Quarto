@@ -1,0 +1,45 @@
+---
+title: "Untitled"
+format: html
+editor: visual
+---
+
+## 1 - Data frame =\> ca marche
+
+### R
+
+```{r}
+data <- read.csv("data/stat.csv")
+ojs_define(newdata = data)
+```
+
+### OJS
+
+```{ojs}
+data = transpose(newdata)
+Inputs.table(data)
+```
+
+## 2 - sf =\> ca marche mais il faut bidouiller un peu pour avoir une geojon exploitable
+
+### R
+
+```{r}
+library("sf")
+library("geojsonsf")
+
+countries <- st_read("data/countries.gpkg", quiet = T)
+ojs_define(geo = sf_geojson(countries))
+
+```
+
+### OJS
+
+```{ojs}
+countries = JSON.parse(geo)
+```
+
+```{ojs}
+bertin = import('https://cdn.skypack.dev/bertin@0.9.12')
+bertin.quickdraw(countries)
+```
