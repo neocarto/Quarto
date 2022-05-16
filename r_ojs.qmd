@@ -4,17 +4,17 @@ format: html
 editor: visual
 ---
 
-In this document, we show how it is possible to pass a variable from R to Observable. We deal with 3 cases: 
+In this document, we show how it is possible to pass a variable from R to Observable. We deal with 3 cases:
 
-- a simple variable
-- a data frame
-- a spatial data frame (sf)
+-   a simple variable
+-   a data frame
+-   a spatial data frame (sf)
 
 # 1 - a simple variable
 
 #### {r}
 
-Here we have a variable myvar which is 12. 
+Here we have a variable myvar which is 12.
 
 ```{r}
 myvar = 12
@@ -26,7 +26,7 @@ The *ojs_define* instruction simply makes this variable accessible in Observable
 ojs_define(myvar)
 ```
 
-#### {ojs} 
+#### {ojs}
 
 ```{ojs}
 myvar
@@ -36,13 +36,13 @@ myvar
 
 ### {r}
 
-In this second case, we import a csv file. 
+In this second case, we import a csv file.
 
 ```{r}
 data <- read.csv("data/stat.csv")
 ```
 
-As before, we use *ojs_define* to make this variable accessible in Observable. We rename this variable to newdata. 
+As before, we use *ojs_define* to make this variable accessible in Observable. We rename this variable to newdata.
 
 ```{r}
 ojs_define(newdata = data)
@@ -50,14 +50,13 @@ ojs_define(newdata = data)
 
 ### {ojs}
 
-Warning, if we visualize this data table in Observable directly, we realize that it does not really have the expected form. 
+Warning, if we visualize this data table in Observable directly, we realize that it does not really have the expected form.
 
 ```{ojs}
 newdata
 ```
 
 Thankfully, the *transpose* instruction allows you to convert the table to the correct format.
-
 
 ```{ojs}
 data = transpose(newdata)
@@ -69,7 +68,7 @@ Inputs.table(data)
 
 ### {r}
 
-In this third case, we import a geopakage thanks to the library sf, containing the countries of the world. 
+In this third case, we import a geopakage thanks to the library sf, containing the countries of the world.
 
 ```{r, message= FALSE}
 library("sf")
@@ -77,8 +76,7 @@ countries <- st_read("data/countries.gpkg", quiet = T)
 plot(st_geometry(countries))
 ```
 
-
-To create a map in Observable, we first need to convert this data set to geojson format. To do this, we use the *geojsonsf* library. Then, the ojs_define() instruction allows to define this variable within ojs cells. 
+To create a map in Observable, we first need to convert this data set to geojson format. To do this, we use the *geojsonsf* library. Then, the ojs_define() instruction allows to define this variable within ojs cells.
 
 ```{r}
 library("geojsonsf")
@@ -89,12 +87,11 @@ ojs_define(geo = sf_geojson(countries))
 
 Note that with ojs_define, we have passed the variable geo as a string and not actually as an object.
 
-
 ```{ojs}
 geo.substr(1, 300)
 ```
 
- The first thing to do here is to transform our string into a real object. To do this, we use the javascript statement *JSON.parse*.
+The first thing to do here is to transform our string into a real object. To do this, we use the javascript statement *JSON.parse*.
 
 ```{ojs}
 countries = JSON.parse(geo) 
@@ -121,7 +118,7 @@ Another way to pass variables and data from R to Observable is to save and then 
 
 ### {r}
 
-As before, we import and geopackage in R with *sf*.  
+As before, we import and geopackage in R with *sf*.
 
 ```{r}
 countries <- st_read("data/countries.gpkg", quiet = T)
