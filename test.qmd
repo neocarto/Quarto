@@ -1,49 +1,150 @@
 ---
-title: "Test ojs_define & transpose"
+title: "Quarto: ojs_define & transpose"
 format: html
 editor: visual
 ---
 
-## 1 - Data frame
+In this document, we show how it is possible to pass a variable from R to Observable. We deal with 3 cases: 
 
- Ca marche impec !
+- a simple variable
+- a data frame
+- a spatial data frame (sf)
 
-### R
+# 1 - a simple variable
+
+#### {r}
+
+Here we have a variable myvar which is 12. 
+
+```{r}
+myvar = 12
+```
+
+The *ojs_define* instruction simply makes this variable accessible in Observable
+
+```{r}
+ojs_define(myvar)
+```
+
+#### {ojs} 
+
+```{ojs}
+myvar
+```
+
+# 1 - a dataframe
+
+### {r}
+
+In this second case, we import a csv file. 
 
 ```{r}
 data <- read.csv("data/stat.csv")
+```
+
+As before, we use *ojs_define* to make this variable accessible in Observable. We rename this variable to newdata. 
+
+```{r}
 ojs_define(newdata = data)
 ```
 
-### OJS
+### {ojs}
+
+Warning, if we visualize this data table in Observable directly, we realize that it does not really have the expected form. 
+
+```{ojs}
+newdata
+```
+
+Thankfully, the *transpose* instruction allows you to convert the table to the correct format.
+
 
 ```{ojs}
 data = transpose(newdata)
+data
 Inputs.table(data)
 ```
 
-## 2 - sf 
+## 3 - a spatial data frame (sf)
 
-Ca marche mais il faut bidouiller un peu pour avoir un geojon exploitable
+### {r}
 
-### R
+In this third case, we import a geopakage thanks to the library sf, containing the countries of the world. 
+
+```{r, message= FALSE}
+library("sf")
+countries <- st_read("data/countries.gpkg", quiet = T)
+plot(st_geometry(countries))
+```
+
+
+To create a map in Observable, we first need to convert this data set to geojson format. To do this, we use the *geojsonsf* library. Then, the ojs_define() instruction allows to define this variable within ojs cells. 
 
 ```{r}
-library("sf")
 library("geojsonsf")
-
-countries <- st_read("data/countries.gpkg", quiet = T)
 ojs_define(geo = sf_geojson(countries))
-
 ```
 
-### OJS
+### {ojs}
+
+Note that with ojs_define, we have passed the variable geo as a string and not actually as an object.
+
 
 ```{ojs}
-countries = JSON.parse(geo)
+geo.substr(1, 300)
 ```
+
+ The first thing to do here is to transform our string into a real object. To do this, we use the javascript statement *JSON.parse*.
+
+```{ojs}
+countries = JSON.parse(geo) 
+countries
+```
+
+Now everything is ok to make a map in Observable. See more [here](https://observablehq.com/@neocartocnrs/hello-bertin-js?collection=@neocartocnrs/bertin).
 
 ```{ojs}
 bertin = import('https://cdn.skypack.dev/bertin@0.9.12')
-bertin.quickdraw(countries)
+bertin.draw({
+  layers: [
+    {
+      geojson: countries,
+      tooltip:["$ISO3","$NAMEen"]
+    }
+    ]
+})
 ```
+
+# 4 - Another solution
+
+Another way to pass variables and data from R to Observable is to save and then import data.
+
+### {r}
+
+As before, we import and geopackage in R with *sf*.  
+
+```{r}
+countries <- st_read("data/countries.gpkg", quiet = T)
+```
+
+Then we convert it to geojson and save it in the data directory.
+
+```{r}
+write(sf_geojson(countries), "data/world.geojson")
+```
+
+### {ojs}
+
+In observable, all that remains is to import this data file in geojson (or other) format.
+
+```{ojs}
+world = FileAttachment("data/world.geojson").json()
+```
+
+Let's take a look at it!
+
+```{ojs}
+bertin.quickdraw(world)
+```
+
+### That's all folks!

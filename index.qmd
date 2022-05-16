@@ -1,51 +1,66 @@
 ---
-title: "Combining R & Obserbale with Quarto"
+title: "Combining R & Observable javascript with Quarto"
 format:
   html:
     code-tools: true
     code-fold: true
 ---
 
-## Data handling & analysis In R
+**Quarto** is an open-source scientific and technical publishing system built on Pandoc. It allows to create dynamic content with Python, R, Julia, and Observable. In this document, I show how it is now possible to combine a an analysis written in **R** and a visualization written in **Observable** javascript.
 
-```{r}
+## 1. Data handling & analysis In R
+
+With the *sf* library, we import a gpkg file containing world countries and display it. 
+
+```{r, message = FALSE}
 library("sf")
 countries <- st_read("data/countries.gpkg", quiet = T)
 plot(st_geometry(countries))
 ```
 
+We now import a statistical file in csv format containing the population and wealth of the countries of the world.
+
 ```{r}
 data <- read.csv("data/stat.csv")
 head(data)
 ```
-Merge data & geometries
+Then, we perform a join between the basemap and the statistical data by matching the identical codes. 
 
 ```{r}
 world = merge(countries, data, by.x = "ISO3", by.y = "id")
 ```
 
-Convert to geojson & export
+To create a map in Observable, we first need to convert this data set to geojson format. To do this, we use the *geojsonsf* library. Then, the ojs_define() instruction allows to define this variable within ojs cells. To learn more about passing variables from R to Ojs, you can visit [this page](https://neocarto.github.io/Quarto/test.html). 
 
 ```{r}
 library(geojsonsf)
-geo = sf_geojson(world)
-write(geo, "data/world.geojson")
+ojs_define(world_str = sf_geojson(world))
 ```
 
-## Then, geoviz in Observable
+*NB: Note that here we have passed the variable as a string and not actually as an object. That's why we called it world_str. *
+
+## 2. Geoviz in Observable Javascript (ojs)
+
+The first thing to do here is to transform our string into a real object. To do this, we use the javascript statement *JSON.parse*.
 
 ```{ojs}
-world = FileAttachment("data/world.geojson").json()
+world = JSON.parse(world_str)
 ```
+
+We display the attribute table to check that everything is ok. 
 
 ```{ojs}
 Inputs.table(world.features.map((d) => d.properties))
 ```
 
+We import the javascript libraries needed for mapping. Here d3-geo-projection@4 to have access to additional mapping projections and bertinjs for the mapping itself. 
+
 ```{ojs}
 d3 = require("d3@7", "d3-geo-projection@4")
 bertin = import('https://cdn.skypack.dev/bertin@0.9.12')
 ```
+
+We define some elements for the interaction with the user.  
 
 ```{ojs}
 viewof val = Inputs.radio(["pop", "gdp"], {
@@ -65,6 +80,7 @@ viewof k = Inputs.range([5, 30], {
 viewof dorling = Inputs.toggle({ label: "Avoid overlap (dorling)" })
 ```
 
+Then we create a thematic interactive map with bertinjs. For more information about bertinjs, see [this](https://github.com/neocarto/bertin) and [that](https://observablehq.com/collection/@neocartocnrs/bertin).
 
 ```{ojs}
 bertin.draw({
