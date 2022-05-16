@@ -295,7 +295,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Another way to pass variables and data from R to Observable is to save and then import data.</p>
 <section id="r-3" class="level3">
 <h3 class="anchored" data-anchor-id="r-3">{r}</h3>
-<p>As before, we import and geopackage in R with <em>sf</em>.</p>
+<p>As before, we import a geopackage in R with <em>sf</em>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>countries <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"data/countries.gpkg"</span>, <span class="at">quiet =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -306,7 +306,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="ojs-3" class="level3">
 <h3 class="anchored" data-anchor-id="ojs-3">{ojs}</h3>
-<p>In observable, all that remains is to import this data file in geojson (or other) format.</p>
+<p>In observable, we just have to import this data file in geojson (or other) format.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16" data-startfrom="138" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 137;"><span id="cb16-138"><a href="#cb16-138" aria-hidden="true" tabindex="-1"></a>world <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"data/world.geojson"</span>)<span class="op">.</span><span class="fu">json</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">

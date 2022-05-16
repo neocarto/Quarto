@@ -118,7 +118,7 @@ Another way to pass variables and data from R to Observable is to save and then 
 
 ### {r}
 
-As before, we import and geopackage in R with *sf*.
+As before, we import a geopackage in R with *sf*.
 
 ```{r}
 countries <- st_read("data/countries.gpkg", quiet = T)
@@ -132,7 +132,7 @@ write(sf_geojson(countries), "data/world.geojson")
 
 ### {ojs}
 
-In observable, all that remains is to import this data file in geojson (or other) format.
+In observable, we just have to import this data file in geojson (or other) format.
 
 ```{ojs}
 world = FileAttachment("data/world.geojson").json()
