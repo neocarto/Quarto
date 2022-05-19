@@ -57,7 +57,7 @@ We import the javascript libraries needed for mapping. Here d3-geo-projection@4 
 
 ```{ojs}
 d3 = require("d3@7", "d3-geo-projection@4")
-bertin = import('https://cdn.skypack.dev/bertin@0.9.12')
+bertin = require('https://cdn.skypack.dev/bertin@0.9.13')
 ```
 
 We define some elements for the interaction with the user.  

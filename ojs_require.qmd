@@ -1,0 +1,19 @@
+---
+title: "Require test"
+format: html
+---
+
+It works!
+
+```{ojs}
+import("https://cdn.skypack.dev/bertin@latest")
+```
+
+it doesn't work!
+
+```{ojs}
+require("bertin@latest")
+```
+
+
+
