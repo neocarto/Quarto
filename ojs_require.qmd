@@ -6,14 +6,12 @@ format: html
 It works!
 
 ```{ojs}
-import("https://cdn.skypack.dev/bertin@latest")
+import("https://cdn.skypack.dev/bertin@0.9.16")
 ```
 
 it doesn't work!
 
 ```{ojs}
-require("bertin@latest")
+require("bertin@0.9.16")
 ```
-
-
 
